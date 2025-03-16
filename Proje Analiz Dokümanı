@@ -1,20 +1,39 @@
+# **Hastane Acil Servis Uygulaması - Proje Analiz Dokümanı**
+
+## **1. Proje Tanımı**
+Bu proje, hastane acil servisinde hasta kayıtlarını ve öncelik sırasına göre işlem süreçlerini yönetmeyi amaçlayan bir konsol tabanlı yazılım sistemidir. Hastaların aciliyet durumuna göre sıralandığı bir **öncelikli kuyruk yapısı** kullanılır.
 
 ---
 
-## **4. Kullanılan Veri Yapıları**
-- **Öncelikli Kuyruk Yapısı**: Hastalar **aciliyet durumuna göre sıralanarak** işleme alınır.
+## **2. Sistem Çalışma Mantığı**
+
+### **2.1 Hasta Kayıt Süreci**
+📌 **Adımlar:**
+- Kullanıcı hasta adı, yaşı ve aciliyet durumunu girer.
+- Hasta, aciliyet seviyesine göre öncelikli sıraya eklenir.
+- Hasta bilgileri **HL7 formatında** saklanır.
+
+### **2.2 Hasta İşleme Süreci**
+📌 **Adımlar:**
+- Öncelikli kuyruktaki ilk hasta işleme alınır.
+- Hasta bilgileri **HL7 formatında** görüntülenir.
+- İşlemi tamamlanan hasta kuyruktan çıkarılır.
+
+### **2.3 Reçete Yazma Süreci**
+📌 **Adımlar:**
+- Öncelikli kuyruktaki hasta için reçete yazılır.
+- Hasta adına özel bir **reçete numarası** üretilir.
+- Reçete bilgileri sistemde saklanır.
+
+### **2.4 Hasta Listesi Görüntüleme**
+📌 **Adımlar:**
+- Mevcut hasta listesi görüntülenebilir.
+- Her hasta için **adı, yaşı ve aciliyet seviyesi** gösterilir.
 
 ---
 
-## **5. Kullanıcı Arayüzü (CLI Menü Sistemi)**
+## **3. Akış Şemaları**
 
-1. **Hasta Ekle**
-2. **Hasta Listele**
-3. **Hasta İşleme Al**
-4. **Reçete Yaz**
-5. **Çıkış**
-
----
-
-## **6. Sonuç**
-Bu proje, hastane acil servisinde hastaların işleme alınmasını hızlandıran ve yönetimi kolaylaştıran bir sistem olarak geliştirilmiştir. **Öncelikli kuyruk yapısı** sayesinde en acil hastalar **ilk işleme alınır**, reçete numaraları üretilerek hasta takibi yapılabilir.
+### **3.1 Hasta Kayıt Akış Şeması**
+```plaintext
+[BAŞLANGIÇ] → Hasta bilgileri alınır → Aciliyet sırasına göre eklenir → [KAYIT TAMAMLANDI]

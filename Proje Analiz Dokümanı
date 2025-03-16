@@ -1,0 +1,63 @@
+# **Hastane Acil Servis Uygulaması - Proje Analiz Dokümanı**
+
+## **1. Proje Tanımı**
+
+Bu proje, hastane acil servisinde hasta kayıtlarını ve öncelik sırasına göre işlem süreçlerini yönetmeyi amaçlayan bir konsol tabanlı yazılım sistemidir. Hastaların aciliyet durumuna göre sıralandığı bir öncelikli kuyruk yapısı kullanılır.
+
+## **2. Sistem Çalışma Mantığı**
+
+### **2.1 Hasta Kayıt Süreci**
+
+1. Kullanıcı hasta adı, yaşı ve aciliyet durumunu girer.
+2. Hasta, aciliyet seviyesine göre öncelikli sıraya eklenir.
+3. Hasta bilgileri HL7 formatında saklanır.
+
+### **2.2 Hasta İşleme Süreci**
+
+1. Öncelikli kuyruktaki ilk hasta işleme alınır.
+
+1) Hasta bilgileri HL7 formatında görüntülenir.
+2) İşlemi tamamlanan hasta kuyruktan çıkarılır.
+
+### **2.3 Reçete Yazma Süreci**
+
+1. Öncelikli kuyruktaki hasta için reçete yazılır.
+2. Hasta adına özel bir reçete numarası üretilir.
+3. Reçete bilgileri sistemde saklanır.
+
+### **2.4 Hasta Listesi Görüntüleme**
+
+1. Mevcut hasta listesi görüntülenebilir.
+2. Her hasta için adı, yaşı ve aciliyet seviyesi gösterilir.
+
+## **3. Akış Şemaları**
+
+### **3.1 Hasta Kayıt Akış Şeması**
+
+- Başlangıç → Hasta bilgileri alınır → Aciliyet sırasına göre eklenir → Kayıt tamamlandı
+
+### **3.2 Hasta İşleme Akış Şeması**
+
+- Başlangıç → Öncelikli hasta seçilir → Hasta bilgileri görüntülenir → Hasta işlenir → Hasta kuyruktan çıkarılır
+
+### **3.3 Reçete Yazma Akış Şeması**
+
+- Başlangıç → Hasta bilgileri alınır → Reçete numarası üretilir → Reçete kaydedilir → İşlem tamamlandı
+
+## **4. Kullanılan Veri Yapıları**
+
+**Öncelikli Kuyruk Yapısı**: Hastalar aciliyet durumuna göre sıralanarak işleme alınır.
+
+## **5. Kullanıcı Arayüzü (CLI Menü Sistemi)**
+
+1. Hasta Ekle
+2. Hasta Listele
+3. Hasta İşleme Al
+4. Reçete Yaz
+5. Çıkış
+
+## **6. Sonuç**
+
+Bu proje, hastane acil servisinde hastaların işleme alınmasını hızlandıran ve yönetimi kolaylaştıran bir sistem olarak geliştirilmiştir. Öncelikli kuyruk yapısı sayesinde en acil hastalar ilk işleme alınır, reçete numaraları üretilerek hasta takibi yapılabilir.
+
+

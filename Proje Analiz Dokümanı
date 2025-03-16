@@ -1,39 +1,74 @@
-# **Hastane Acil Servis Uygulaması - Proje Analiz Dokümanı**
+# **Acil Servis Hasta Yönetim Sistemi - Proje Analiz Dökümanı**
 
 ## **1. Proje Tanımı**
-Bu proje, hastane acil servisinde hasta kayıtlarını ve öncelik sırasına göre işlem süreçlerini yönetmeyi amaçlayan bir konsol tabanlı yazılım sistemidir. Hastaların aciliyet durumuna göre sıralandığı bir **öncelikli kuyruk yapısı** kullanılır.
+Bu proje, acil serviste hastaların öncelik sırasına göre yönetilmesini sağlayan bir yazılımdır. Hastalar aciliyet seviyelerine göre sıralanır ve işleme alınır. Ayrıca hasta bilgileri HL7 formatında görüntülenebilir, reçete oluşturulabilir ve hasta listesi düzenlenebilir.
 
----
+## **2. Kullanılan Veri Yapıları**
+Proje, hastaları bir bağlı liste (Linked List) veri yapısında saklar. **Tek yönlü bağlı liste**, dinamik bellek yönetimi sayesinde hastaların eklenmesini ve silinmesini kolaylaştırır.
 
-## **2. Sistem Çalışma Mantığı**
+## **3. Çalışma Mantığı**
+- Kullanıcı hastaları ismi, yaşı ve aciliyet seviyesine göre ekleyebilir.
+- Aciliyet seviyesi yüksek olan hastalar listede daha öncelikli konuma yerleştirilir.
+- Hasta bilgileri listelenebilir ve HL7 formatında gösterilebilir.
+- İşleme alınan hasta listeden silinir.
+- Rastgele reçete numarası oluşturularak hasta için reçete düzenlenebilir.
+- Kullanıcı, belirli bir hastayı isme göre listeden silebilir.
+- Toplam hasta sayısı hesaplanarak görüntülenebilir.
+- Kullanıcı, sistemden çıkış yaparak işlemi sonlandırabilir.
 
-### **2.1 Hasta Kayıt Süreci**
-📌 **Adımlar:**
-- Kullanıcı hasta adı, yaşı ve aciliyet durumunu girer.
-- Hasta, aciliyet seviyesine göre öncelikli sıraya eklenir.
-- Hasta bilgileri **HL7 formatında** saklanır.
+## **4. Fonksiyon Açıklamaları**
 
-### **2.2 Hasta İşleme Süreci**
-📌 **Adımlar:**
-- Öncelikli kuyruktaki ilk hasta işleme alınır.
-- Hasta bilgileri **HL7 formatında** görüntülenir.
-- İşlemi tamamlanan hasta kuyruktan çıkarılır.
+### **4.1 Hasta Ekleme (`hastaEkle`)**
+Yeni hasta ekler ve aciliyet seviyesine göre uygun konuma yerleştirir.
 
-### **2.3 Reçete Yazma Süreci**
-📌 **Adımlar:**
-- Öncelikli kuyruktaki hasta için reçete yazılır.
-- Hasta adına özel bir **reçete numarası** üretilir.
-- Reçete bilgileri sistemde saklanır.
+### **4.2 Hasta Listeleme (`hastaListele`)**
+Mevcut hasta listesini görüntüler.
 
-### **2.4 Hasta Listesi Görüntüleme**
-📌 **Adımlar:**
-- Mevcut hasta listesi görüntülenebilir.
-- Her hasta için **adı, yaşı ve aciliyet seviyesi** gösterilir.
+### **4.3 Hasta İşleme (`hastaIslem`)**
+Listenin başındaki hastayı işleme alır ve siler.
 
----
+### **4.4 HL7 Hasta Bilgisi (`hl7HastaBilgisi`)**
+HL7 formatında hasta bilgisini ekrana yazdırır.
 
-## **3. Akış Şemaları**
+### **4.5 Reçete Yaz (`receteYaz`)**
+Rastgele reçete numarası üreterek hasta için reçete oluşturur.
 
-### **3.1 Hasta Kayıt Akış Şeması**
-```plaintext
-[BAŞLANGIÇ] → Hasta bilgileri alınır → Aciliyet sırasına göre eklenir → [KAYIT TAMAMLANDI]
+### **4.6 Hasta Silme (`hastaSil`)**
+Belirtilen isimdeki hastayı listeden kaldırır.
+
+### **4.7 Toplam Hasta Sayısı (`toplamHastaSayisi`)**
+Listede kayıtlı toplam hasta sayısını döndürür.
+
+## **5. Akış Şemaları**
+
+### **5.1 Hasta Ekleme Akış Şeması**
+1. Kullanıcı hasta adı, yaşı ve aciliyet seviyesini girer.
+2. Yeni hasta düğümü oluşturulur.
+3. Liste boşsa veya yeni hasta daha öncelikliyse başa eklenir.
+4. Değilse uygun konum bulunur ve hasta listeye yerleştirilir.
+
+### **5.2 Hasta İşleme Akış Şeması**
+1. Liste boşsa işlem yapılmaz.
+2. Listenin başındaki hasta işleme alınır.
+3. HL7 formatında hasta bilgisi gösterilir.
+4. Hasta listeden silinir.
+
+### **5.3 Reçete Yazma Akış Şeması**
+1. Liste boşsa işlem yapılmaz.
+2. Hasta için rastgele reçete numarası üretilir.
+3. Hasta adına reçete düzenlenir ve gösterilir.
+
+## **6. Kullanıcı Arayüzü ve Menü**
+Kullanıcı, aşağıdaki menüden işlemlerini gerçekleştirebilir:
+
+1 - Hasta Ekle
+2 - Hasta Listele
+3 - Hasta İşleme Al
+4 - Reçete Yaz
+5 - Hasta Sil
+6 - Toplam Hasta Sayısı
+7 - Çıkış
+
+## **7. Sonuç**
+Bu proje, acil serviste hasta yönetimini optimize etmek için geliştirilmiştir. Aciliyet bazlı önceliklendirme sayesinde kritik hastalar daha hızlı işleme alınabilir. Proje, gelecekte veri tabanı entegrasyonu ve GUI desteği ile genişletilebilir.
+

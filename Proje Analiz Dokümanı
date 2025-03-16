@@ -1,92 +1,20 @@
-**Kod Anlatımı**
-
-Merhaba, bu videoda bir **hastane acil servis hasta yönetim sistemini** anlatacağım. Kodumuz, öncelikli kuyruk yapısını kullanarak hastaları aciliyet sırasına göre sıralıyor ve çeşitli işlemleri yapmamızı sağlıyor. Şimdi fonksiyonları tek tek inceleyelim.
 
 ---
 
-### 1️⃣ **Hasta Yapısı (struct Hasta)**
-Kodun başında, **Hasta** adlı bir yapı (struct) tanımlıyoruz. Bu yapı şu bilgileri tutuyor:
-- **Adı** (char dizisi olarak)
-- **Yaşı** (int)
-- **Aciliyet Seviyesi** (1: Düşük, 2: Orta, 3: Yüksek)
-- **Sonraki Hasta** için bir pointer (bağlı liste mantığı)
-
-Bu yapı, hastaları bir bağlı liste şeklinde saklamamızı sağlıyor.
+## **4. Kullanılan Veri Yapıları**
+- **Öncelikli Kuyruk Yapısı**: Hastalar **aciliyet durumuna göre sıralanarak** işleme alınır.
 
 ---
 
-### 2️⃣ **HL7 Formatında Hasta Bilgisi Yazdırma (hl7HastaBilgisi)**
-Bu fonksiyon, bir hastanın bilgilerini **HL7 formatında** ekrana yazdırıyor. HL7, sağlık sistemlerinde kullanılan bir veri formatıdır. Fonksiyon şu şekilde çalışır:
-```
-HL7 Hasta Kaydi: PID|1|HastaAdi|Yas|AciliyetSeviyesi
-```
+## **5. Kullanıcı Arayüzü (CLI Menü Sistemi)**
+
+1. **Hasta Ekle**
+2. **Hasta Listele**
+3. **Hasta İşleme Al**
+4. **Reçete Yaz**
+5. **Çıkış**
 
 ---
 
-### 3️⃣ **Hasta Ekleme (hastaEkle)**
-Bu fonksiyon, yeni bir hasta kaydı oluşturur ve **öncelikli kuyruk sırasına göre** listeye ekler.
-- Eğer liste boşsa, yeni hasta **ilk hasta olarak** eklenir.
-- Eğer yeni hasta, mevcut hastalardan **daha yüksek aciliyete** sahipse, **listenin başına** eklenir.
-- Aksi takdirde, aciliyet seviyesine göre **doğru konuma yerleştirilir**.
-
-Ekleme işlemi tamamlandıktan sonra ekrana **"Hasta kaydedildi"** mesajı yazdırılır.
-
----
-
-### 4️⃣ **Hasta Listeleme (hastaListele)**
-Bu fonksiyon, kuyruktaki tüm hastaları **aciliyet sırasına göre** listeler.
-- Eğer listede hasta yoksa, **"Hasta listesi boş"** mesajı verilir.
-- Hasta varsa, **Adı, Yaşı ve Aciliyet Seviyesi** ekrana yazdırılır.
-
----
-
-### 5️⃣ **Hasta İşleme Alma (hastaIslem)**
-Bu fonksiyon, **en yüksek öncelikli hastayı** işleme alır.
-- Öncelikle hastanın bilgileri ekrana yazdırılır.
-- **HL7 formatında** hasta kaydı ekrana yazdırılır.
-- Hasta listeden **çıkarılır ve bellekte serbest bırakılır**.
-
-Eğer kuyruk boşsa, **"İşlem yapılacak hasta yok"** mesajı gösterilir.
-
----
-
-### 6️⃣ **Reçete Yazma (receteYaz)**
-Bu fonksiyon, sıradaki hasta için bir **reçete numarası üretir** ve ekrana yazdırır.
-- **Rastgele 100000 ile 999999 arasında bir reçete numarası** oluşturur.
-- Reçete, hasta adıyla birlikte ekrana yazdırılır.
-- Eğer hasta listesi boşsa, **"Reçete yazılacak hasta yok"** mesajı verilir.
-
----
-
-### 7️⃣ **Hasta Silme (hastaSil)**
-Bu fonksiyon, ismi girilen hastayı listeden siler.
-- Eğer hasta listede bulunamazsa, **"Hasta bulunamadı"** mesajı verilir.
-- Eğer bulunursa, listeden kaldırılır ve **bellek serbest bırakılır**.
-
----
-
-### 8️⃣ **Toplam Hasta Sayısı (toplamHastaSayisi)**
-Bu fonksiyon, kuyruktaki hasta sayısını hesaplar ve ekrana yazdırır.
-- **Bağlı listeyi dolaşarak** kaç hasta olduğunu sayar.
-
----
-
-### 9️⃣ **Ana Menü (main)**
-Kodun ana menü kısmında, kullanıcının yapabileceği işlemler listelenir:
-- **1 - Hasta Ekle**
-- **2 - Hasta Listele**
-- **3 - Hasta İşleme Al**
-- **4 - Reçete Yaz**
-- **5 - Hasta Sil**
-- **6 - Toplam Hasta Sayısı**
-- **7 - Çıkış**
-
-Kullanıcı bir işlem seçtiğinde, ilgili fonksiyon çağrılır ve gerekli işlem yapılır.
-
----
-
-📌 **Sonuç:**
-Bu program, **öncelikli kuyruk mantığıyla çalışan bir hasta yönetim sistemi** oluşturur. **En acil hastalar önce işleme alınır** ve **her hasta için reçete oluşturulabilir**. Bu sistem, hastane acil servislerinde triyaj sürecini kolaylaştırmak için kullanılabilir.
-
-Videoyu izlediğiniz için teşekkürler! 😊
-
+## **6. Sonuç**
+Bu proje, hastane acil servisinde hastaların işleme alınmasını hızlandıran ve yönetimi kolaylaştıran bir sistem olarak geliştirilmiştir. **Öncelikli kuyruk yapısı** sayesinde en acil hastalar **ilk işleme alınır**, reçete numaraları üretilerek hasta takibi yapılabilir.
